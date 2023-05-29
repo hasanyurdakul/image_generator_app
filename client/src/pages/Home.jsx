@@ -76,7 +76,7 @@ const Home = () => {
           name={"text "}
           placeholder={"Search posts"}
           value={searchText}
-          handleChange={handleChange}
+          handleChange={handleSearchChange}
         />
         <div className="mt-10">
           {loading ? (
@@ -93,9 +93,12 @@ const Home = () => {
               )}
               <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
                 {searchText ? (
-                  <RenderCards data={[]} title="No search results found" />
+                  <RenderCards
+                    data={searchedResults}
+                    title="No search results found"
+                  />
                 ) : (
-                  <RenderCards data={allPosts} title="No posts found" />
+                  <RenderCards data={} title="No posts found" />
                 )}
               </div>
             </>
