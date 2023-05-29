@@ -23,7 +23,9 @@ const startServer = async () => {
   try {
     connectDB(process.env.MONGODB_URL);
     app.listen(8080, () =>
-      console.log("Server has started on port https://localhost:8080")
+      console.log(
+        "Server has started at https://image-generator-app-szur.onrender.com"
+      )
     );
   } catch (error) {
     console.log(error);
