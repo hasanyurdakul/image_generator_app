@@ -6,8 +6,6 @@ import { getRandomPrompt } from "../utils";
 
 const handleSubmit = () => {};
 
-const generateImage = () => {};
-
 const CreatePost = () => {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,6 +13,28 @@ const CreatePost = () => {
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
     setForm({ ...form, prompt: randomPrompt });
+  };
+
+  const generateImage = async () => {
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+        const response = await fetch("https://localhost:8080/api/v1/dalle", {
+          method: "POST",
+          headers: { "Content-Type ": "application/json" },
+          body: JSON.stringify({ prompt: form.prompt }),
+        });
+        const data = response.json();
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (error) {
+        console.log("generateImage error"), error;
+        alert(error);
+      } finally {
+        setGeneratingImg(false);
+      }
+    } else {
+      alert("Please enter a prompt");
+    }
   };
 
   const navigate = useNavigate();
